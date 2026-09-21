@@ -1,6 +1,7 @@
 """Classify student requests from messages.txt and print response drafts."""
 
 from pathlib import Path
+import sys
 
 
 REFERENCE_WORDS = ("справк", "где", "как получить", "парковк")
@@ -54,6 +55,8 @@ def draft_reply(category: str, message: str) -> str:
 
 
 def main() -> None:
+    # Windows terminals may default to a legacy code page without Cyrillic.
+    sys.stdout.reconfigure(encoding="utf-8")
     messages_path = Path(__file__).with_name("messages.txt")
     messages = messages_path.read_text(encoding="utf-8").splitlines()
 
